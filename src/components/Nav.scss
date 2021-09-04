@@ -1,12 +1,12 @@
 .Nav {
-    position: fixed;
+    position: fixed; // Navコンポーネントの位置を固定
     top: 0;
     width: 100%;
     height: 30px;
     padding: 20px;
     z-index: 1;
-    display: flex;
-    justify-content: space-between;
+    display: flex; // ロゴを横並びにする
+    justify-content: space-between; // ロゴを右端と左端に設置
   
     /* Animations */
     transition-timing-function: ease-in;
