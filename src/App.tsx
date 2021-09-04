@@ -1,7 +1,7 @@
-//import React from 'react';
+import React from 'react'
 import './App.css'
 import { Row } from './components/Row'
-import { Banner } from "./components/Banner";
+import { Banner } from './components/Banner'
 import { requests } from './request'
 
 function App() {
