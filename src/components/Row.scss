@@ -14,7 +14,7 @@
   }
 
   &-poster {
-    object-fit: contain;
+    object-fit: contain; /* アスペクト比を調整 */
     width: 100%;
     max-height: 100px;
     margin: 10px;

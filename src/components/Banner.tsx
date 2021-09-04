@@ -1,5 +1,4 @@
-//import { request } from "https";
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from './../axios'
 import { requests } from './../request'
 import './Banner.scss'
@@ -14,12 +13,13 @@ type movieProps = {
 
 export const Banner = () => {
   const [movie, setMovie] = useState<movieProps>({})
-  useEffect(() => {
-    async function fetchData() {
-      const request = await axios.get(requests.feachNetflixOriginals)
-      console.log(request.data.result)
 
-      //apiからランダムで値を取得している
+  // レンダリング時のみ実行
+  useEffect(() => {
+    async function fetchBannerData() {
+      const request = await axios.get(requests.feachNetflixOriginals)
+
+      // 取得したコンテンツからバナーの表示対象をランダムに洗濯
       setMovie(
         request.data.results[
           Math.floor(Math.random() * request.data.results.length - 1)
@@ -27,11 +27,10 @@ export const Banner = () => {
       )
       return request
     }
-    fetchData()
+    fetchBannerData()
   }, [])
-  console.log(movie)
 
-  // descriptionの切り捨てよう関数
+  // descriptionが指定文字数を超えた場合にtrim
   function truncate(str: any, n: number) {
     // undefinedを弾く
     if (str !== undefined) {
@@ -44,7 +43,7 @@ export const Banner = () => {
       className="Banner"
       style={{
         backgroundSize: 'cover',
-        backgroundImage: `url("https://image.tmdb.org/t/p/original${movie?.backdrop_path}")`,
+        backgroundImage: `url("https://image.tmdb.org/t/p/original${movie?.backdrop_path}")`, // TODO: FIXME
         backgroundPosition: 'center center',
       }}
     >

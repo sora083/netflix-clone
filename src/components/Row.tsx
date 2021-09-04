@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import YouTube from 'react-youtube'
 import axios from './../axios'
 import './Row.scss'
+require('dotenv').config()
 
 const base_url = 'https://image.tmdb.org/t/p/original'
+const API_KEY = process.env.REACT_APP_API_KEY
 
 type Props = {
   title: string
@@ -20,8 +22,7 @@ type Movie = {
   backdrop_path: string
 }
 
-//trailerのoption
-type Options = {
+type TrailerOptions = {
   height: string
   width: string
   playerVars: {
@@ -33,19 +34,18 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
   const [movies, setMovies] = useState<Movie[]>([])
   const [trailerUrl, setTrailerUrl] = useState<string | null>('')
 
-  //urlが更新される度に
+  // fetchUrlが変化するたびにAPIを呼び出して結果を配列にセットする
   useEffect(() => {
-    async function fetchData() {
+    async function fetchContentsData() {
       const request = await axios.get(fetchUrl)
       setMovies(request.data.results)
       return request
     }
-    fetchData()
+    fetchContentsData()
   }, [fetchUrl])
 
-  //console.log(movies)
-
-  const opts: Options = {
+  // trailer option
+  const opts: TrailerOptions = {
     height: '390',
     width: '640',
     playerVars: {
@@ -58,7 +58,9 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
     if (trailerUrl) {
       setTrailerUrl('')
     } else {
-      let trailerurl = await axios.get(`/movie/${movie.id}/videos?api_key=XXX`)
+      let trailerurl = await axios.get(
+        `/movie/${movie.id}/videos?api_key=${API_KEY}`,
+      )
       setTrailerUrl(trailerurl.data.results[0]?.key)
     }
   }
