@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import YouTube from 'react-youtube'
 import axios from './../axios'
 import './Row.scss'
+require('dotenv').config()
 
 const base_url = 'https://image.tmdb.org/t/p/original'
+const API_KEY = process.env.REACT_APP_API_KEY
 
 type Props = {
   title: string
@@ -58,7 +60,9 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
     if (trailerUrl) {
       setTrailerUrl('')
     } else {
-      let trailerurl = await axios.get(`/movie/${movie.id}/videos?api_key=XXX`)
+      let trailerurl = await axios.get(
+        `/movie/${movie.id}/videos?api_key=${API_KEY}`,
+      )
       setTrailerUrl(trailerurl.data.results[0]?.key)
     }
   }
