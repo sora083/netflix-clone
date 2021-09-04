@@ -20,9 +20,18 @@ type Movie = {
   backdrop_path: string
 }
 
+//trailerのoption
+type Options = {
+  height: string
+  width: string
+  playerVars: {
+    autoplay: 0 | 1 | undefined
+  }
+}
+
 export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
   const [movies, setMovies] = useState<Movie[]>([])
-  //const [trailerUrl, setTrailerUrl] = useState<string | null>("");
+  const [trailerUrl, setTrailerUrl] = useState<string | null>('')
 
   //urlが更新される度に
   useEffect(() => {
@@ -36,30 +45,23 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
 
   //console.log(movies)
 
-  // const opts: Options = {
-  //   height: "390",
-  //   width: "640",
-  //   playerVars: {
-  //     // https://developers.google.com/youtube/player_parameters
-  //     autoplay: 1,
-  //   },
-  // };
+  const opts: Options = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  }
 
-  // const handleClick = async (movie: Movie) => {
-  //   if (trailerUrl) {
-  //     setTrailerUrl("");
-  //   } else {
-  //     let trailerurl = await axios.get(`/movie/${movie.id}/videos?api_key=XXX`);
-  //     setTrailerUrl(trailerurl.data.results[0]?.key);
-  //   }
-  //   //   movieTrailer(movie?.name || movie?.title || movie?.original_name || "")
-  //   //     .then((url: string) => {
-  //   //       const urlParams = new URLSearchParams(new URL(url).search);
-  //   //       setTrailerUrl(urlParams.get("v"));
-  //   //     })
-  //   //     .catch((error: any) => console.log(error.message));
-  //   // }
-  // };
+  const handleClick = async (movie: Movie) => {
+    if (trailerUrl) {
+      setTrailerUrl('')
+    } else {
+      let trailerurl = await axios.get(`/movie/${movie.id}/videos?api_key=XXX`)
+      setTrailerUrl(trailerurl.data.results[0]?.key)
+    }
+  }
 
   return (
     <div className="Row">
@@ -74,11 +76,11 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
               isLargeRow ? movie.poster_path : movie.backdrop_path
             }`}
             alt={movie.name}
-            // onClick={() => handleClick(movie)}
+            onClick={() => handleClick(movie)}
           />
         ))}
       </div>
-      {/* {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />} */}
+      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
     </div>
   )
 }
