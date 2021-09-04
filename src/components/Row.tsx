@@ -58,10 +58,10 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
     if (trailerUrl) {
       setTrailerUrl('')
     } else {
-      let trailerurl = await axios.get(
+      let trailerUrl = await axios.get(
         `/movie/${movie.id}/videos?api_key=${API_KEY}`,
       )
-      setTrailerUrl(trailerurl.data.results[0]?.key)
+      setTrailerUrl(trailerUrl.data.results[0]?.key)
     }
   }
 
@@ -70,7 +70,7 @@ export const Row = ({ title, fetchUrl, isLargeRow }: Props) => {
       <h2>{title}</h2>
       <div className="Row-posters">
         {/* ポスターコンテンツ */}
-        {movies.map((movie, i) => (
+        {movies.map((movie) => (
           <img
             key={movie.id}
             className={`Row-poster ${isLargeRow && 'Row-poster-large'}`}
