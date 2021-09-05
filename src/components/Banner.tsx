@@ -6,7 +6,7 @@ import './Banner.scss'
 type movieProps = {
   title?: string
   name?: string
-  orignal_name?: string
+  original_name?: string
   backdrop_path?: string
   overview?: string
 }
@@ -17,7 +17,7 @@ export const Banner = () => {
   // レンダリング時のみ実行
   useEffect(() => {
     async function fetchBannerData() {
-      const request = await axios.get(requests.feachNetflixOriginals)
+      const request = await axios.get(requests.fetchNetflixOriginals)
 
       // 取得したコンテンツからバナーの表示対象をランダムに洗濯
       setMovie(
@@ -49,7 +49,7 @@ export const Banner = () => {
     >
       <div className="Banner-contents">
         <h1 className="banner-title">
-          {movie?.title || movie?.name || movie?.orignal_name}
+          {movie?.title || movie?.name || movie?.original_name}
         </h1>
         <div className="Banner-buttons">
           <button className="Banner-button">Play</button>
