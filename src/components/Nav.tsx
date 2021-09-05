@@ -23,8 +23,8 @@ export const Nav = () => {
     <div className={`Nav ${show && 'Nav-black'}`}>
       <img
         className="Nav-logo"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png"
-        alt="Netflix Logo"
+        src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_long_2-9665a76b1ae401a510ec1e0ca40ddcb3b0cfe45f1d51b77a308fea0845885648.svg"
+        alt="TMDB Logo"
       />
       <img
         className="Nav-avatar"
